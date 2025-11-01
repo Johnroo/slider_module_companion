@@ -1,0 +1,36 @@
+{
+	"$schema": "./assets/manifest.schema.json",
+	"id": "companion-module-slider",
+	"name": "Slider Motorized",
+	"shortname": "slider",
+	"description": "Control motorized slider with pan/tilt/zoom capabilities via OSC and HTTP",
+	"version": "1.0.0",
+	"license": "MIT",
+	"repository": "",
+	"bugs": "",
+	"maintainers": [
+		{
+			"name": "Laurent Eyen"
+		}
+	],
+	"legacyIds": [],
+	"runtime": {
+		"type": "node18",
+		"api": "nodejs-ipc",
+		"apiVersion": "1.13.4",
+		"entrypoint": "dist/module/index.js"
+	},
+	"manufacturer": "Custom",
+	"products": [
+		"Motorized Slider"
+	],
+	"keywords": [
+		"slider",
+		"motorized",
+		"pan",
+		"tilt",
+		"zoom",
+		"osc"
+	]
+}
+
