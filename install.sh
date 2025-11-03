@@ -9,16 +9,23 @@ YELLOW='\033[1;33m'
 RED='\033[0;31m'
 NC='\033[0m' # No Color
 
-echo -e "${GREEN}=== Installation du module Companion Slider ===${NC}"
+# Récupérer le nom du module depuis package.json
+if [ -f "package.json" ]; then
+    MODULE_NAME=$(node -p "require('./package.json').name" 2>/dev/null || echo "companion-module-slider")
+else
+    MODULE_NAME="companion-module-slider"
+fi
+
+echo -e "${GREEN}=== Installation du module: $MODULE_NAME ===${NC}"
 echo ""
 
 # Déterminer le répertoire d'installation en fonction du système
 if [[ "$OSTYPE" == "linux-gnu"* ]] || [[ "$OSTYPE" == "darwin"* ]]; then
     # Linux ou macOS
-    INSTALL_DIR="$HOME/.local/share/companion-module-slider"
+    INSTALL_DIR="$HOME/.local/share/$MODULE_NAME"
 elif [[ "$OSTYPE" == "msys" ]] || [[ "$OSTYPE" == "cygwin" ]] || [[ "$OSTYPE" == "win32" ]]; then
     # Windows
-    INSTALL_DIR="$APPDATA/companion-module-slider"
+    INSTALL_DIR="$APPDATA/$MODULE_NAME"
 else
     echo -e "${RED}Erreur: Système d'exploitation non supporté${NC}"
     exit 1
@@ -62,8 +69,7 @@ echo -e "${GREEN}✓ Module installé avec succès dans: ${INSTALL_DIR}${NC}"
 echo ""
 echo -e "${YELLOW}Prochaines étapes:${NC}"
 echo "1. Redémarrer Companion pour que le module soit reconnu"
-echo "2. Ajouter une nouvelle instance 'Slider Motorized' dans Companion"
-echo "3. Configurer l'adresse IP de votre appareil slider"
+echo "2. Ajouter une nouvelle instance du module dans Companion"
 echo ""
 echo -e "${GREEN}Installation terminée !${NC}"
 
