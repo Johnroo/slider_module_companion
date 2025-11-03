@@ -94,19 +94,19 @@ yarn companion-module-build
 
 **Option B - Installation manuelle** :
 
-Pour un développement local, vous devez copier le dossier entier dans le répertoire des modules de Companion :
+Pour un développement local, après avoir exécuté `yarn companion-module-build`, copiez le contenu du dossier `pkg/` dans le répertoire des modules de Companion :
 
 **Linux/Mac** : 
-```
-~/.local/share/companion-module-slider/
+```bash
+cp -r pkg/* ~/.local/share/companion-module-slider/
 ```
 
 **Windows** :
-```
-%APPDATA%/companion-module-slider/
+```bash
+xcopy /E /I pkg %APPDATA%\companion-module-slider
 ```
 
-La structure finale devrait être :
+La structure finale installée devrait être :
 ```
 companion-module-slider/
 ├── companion/

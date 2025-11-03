@@ -28,13 +28,18 @@ echo -e "${YELLOW}Répertoire d'installation: ${INSTALL_DIR}${NC}"
 echo ""
 
 # Vérifier que le build a été fait
-if [ ! -d "dist" ]; then
-    echo -e "${RED}Erreur: Le dossier 'dist' n'existe pas. Veuillez d'abord exécuter 'yarn build'${NC}"
+if [ ! -d "pkg" ]; then
+    echo -e "${RED}Erreur: Le dossier 'pkg' n'existe pas. Veuillez d'abord exécuter 'yarn build && yarn companion-module-build'${NC}"
     exit 1
 fi
 
-if [ ! -f "dist/module/index.js" ]; then
-    echo -e "${RED}Erreur: Le fichier 'dist/module/index.js' n'existe pas. Veuillez d'abord exécuter 'yarn build'${NC}"
+if [ ! -f "pkg/main.js" ]; then
+    echo -e "${RED}Erreur: Le fichier 'pkg/main.js' n'existe pas. Veuillez d'abord exécuter 'yarn companion-module-build'${NC}"
+    exit 1
+fi
+
+if [ ! -f "pkg/companion/manifest.json" ]; then
+    echo -e "${RED}Erreur: Le fichier 'pkg/companion/manifest.json' n'existe pas. Veuillez d'abord exécuter 'yarn companion-module-build'${NC}"
     exit 1
 fi
 
@@ -47,14 +52,10 @@ fi
 # Créer le répertoire d'installation
 mkdir -p "$INSTALL_DIR"
 
-# Copier les fichiers nécessaires
+# Copier les fichiers nécessaires depuis pkg/
 echo "Copie des fichiers..."
-cp -r assets "$INSTALL_DIR/"
-cp -r dist "$INSTALL_DIR/"
-cp -r generated "$INSTALL_DIR/"
-cp -r lib "$INSTALL_DIR/"
-cp package.json "$INSTALL_DIR/"
-cp README.md "$INSTALL_DIR/"
+cp -r pkg/* "$INSTALL_DIR/"
+cp README.md "$INSTALL_DIR/" 2>/dev/null || true
 
 echo ""
 echo -e "${GREEN}✓ Module installé avec succès dans: ${INSTALL_DIR}${NC}"
